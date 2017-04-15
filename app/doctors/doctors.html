@@ -1,0 +1,16 @@
+<div>
+  <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable" style="margin: 20px">
+    <thead>
+      <tr>
+        <th class="mdl-data-table__cell--non-numeric">First Name</th>
+        <th class="mdl-data-table__cell--non-numeric">Last Name</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="doctor in doctors" ng-click="doctorSelected(doctor.did)">
+        <td class="mdl-data-table__cell--non-numeric">{{doctor.fname}}</td>
+        <td class="mdl-data-table__cell--non-numeric">{{doctor.lname}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
