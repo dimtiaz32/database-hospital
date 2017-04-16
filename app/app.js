@@ -5,10 +5,12 @@ angular.module('myApp', [
   'ngRoute',
   'myApp.PatientsCtrl',
   'myApp.DoctorsCtrl',
+  'myApp.NursesCtrl',
   'myApp.version'
 ]).
 config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
   $locationProvider.hashPrefix('!');
 
   $routeProvider.otherwise({redirectTo: '/patients'});
-}]);
+}])
+.constant('SERVER_HOST', 'http://localhost:3000');

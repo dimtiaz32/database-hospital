@@ -1,0 +1,17 @@
+table {
+  width: 100%;
+  font-family: sans-serif;
+}
+
+td:hover {
+  cursor: pointer;
+}
+
+.background {
+  background-color: #e6eeff;
+}
+
+.hsp .mdl-card .mdl-shadow--4dp {
+  width: 100%;
+  float: right;
+}

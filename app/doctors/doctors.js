@@ -11,8 +11,6 @@ angular.module('myApp.DoctorsCtrl', ['ngRoute'])
 
 .controller('DoctorsCtrl', ['$scope', '$http', function($scope, $http) {
 
-  var SERVER_HOST = 'http://localhost:3000';
-
   $scope.doctors = [];
 
   $http.get(SERVER_HOST + '/api/doctors')
