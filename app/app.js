@@ -6,7 +6,8 @@ angular.module('myApp', [
   'myApp.PatientsCtrl',
   'myApp.DoctorsCtrl',
   'myApp.NursesCtrl',
-  'myApp.version'
+  'myApp.version',
+  'ngMaterial'
 ]).
 config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
   $locationProvider.hashPrefix('!');

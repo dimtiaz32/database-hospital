@@ -22,6 +22,10 @@ angular.module('myApp.PatientsCtrl', ['ngRoute'])
     pdetails: 'No details'
   };
 
+  //Filter stuff
+  $scope.doctors = [];
+  $scope.selectedDoctor = { did:0 };
+
   $scope.loadPatients = function () {
     $http.get(SERVER_HOST + '/api/patients')
       .then(function(response){
@@ -61,7 +65,39 @@ angular.module('myApp.PatientsCtrl', ['ngRoute'])
       $scope.loadPatients();
   }
 
+  $scope.loadDoctors = function () {
+    $http.get(SERVER_HOST + '/api/doctors')
+      .then(function(response){
+        $scope.doctors = response.data.data;
+        $scope.doctors.push({did: 0, fname: 'None', lname: ''});
+        console.log($scope.doctors);
+      },
+      function(error){
+        console.log("ERROR: " + error);
+      });
+  }
+
+  $scope.getSelectedDoctor = function() {
+    console.log($scope.selectedDoctor.did);
+  }
+
+  $scope.filterPatients = function() {
+    $http.post(SERVER_HOST + '/api/filteredPatients', {
+      did: $scope.selectedDoctor.did
+    },
+    {
+      method: 'POST',
+    })
+      .then(function(response) {
+        $scope.patients = response.data.data;
+      })
+      .catch(function(error) {
+        console.log("ERROR: " + error);
+      });
+  }
+
   //Stuff to do on startup
   $scope.loadPatients();
+  $scope.loadDoctors();
 
 }]);
