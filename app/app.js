@@ -13,5 +13,4 @@ config(['$locationProvider', '$routeProvider', function($locationProvider, $rout
   $locationProvider.hashPrefix('!');
 
   $routeProvider.otherwise({redirectTo: '/patients'});
-}])
-.constant('SERVER_HOST', 'http://localhost:3000');
+}]);

@@ -18,21 +18,25 @@ angular.module('myApp.PatientsCtrl', ['ngRoute'])
   $scope.newPatient = {
     fname: 'John',
     lname: 'Doe',
-    phonenumber: '1234567891',
+    phonenumber: '1234567890',
     pdetails: 'No details'
   };
 
   //Filter stuff
   $scope.doctors = [];
   $scope.selectedDoctor = { did:0 };
+  $scope.wards = [];
+  $scope.selectedWard = { wid:0 };
+
+  //Search Stuff
+  $scope.fnameSearch;
+  $scope.lnameSearch;
 
   $scope.loadPatients = function () {
     $http.get(SERVER_HOST + '/api/patients')
       .then(function(response){
-        console.log(response);
         $scope.patients = response.data.data;
         $scope.selectedPatient = $scope.patients[0];
-        console.log($scope.patients);
         console.log($scope.patients);
       },
       function(error){
@@ -41,8 +45,17 @@ angular.module('myApp.PatientsCtrl', ['ngRoute'])
   }
 
   $scope.selectPatient = function(patient) {
-    $scope.selectedPatient = patient;
-    console.log("NEW PATIENT SELECTED");
+
+    $http.get(SERVER_HOST + '/api/patients/' + patient.pid)
+      .then(function(response) {
+        console.log(response.data.data);
+        $scope.selectedPatient = response.data.data;
+        console.log($scope.selectedPatient);
+      })
+      .catch(function(error) {
+        console.log("ERROR: " + error);
+      });
+
   }
 
 
@@ -83,21 +96,56 @@ angular.module('myApp.PatientsCtrl', ['ngRoute'])
 
   $scope.filterPatients = function() {
     $http.post(SERVER_HOST + '/api/filteredPatients', {
-      did: $scope.selectedDoctor.did
+      did: $scope.selectedDoctor.did,
+      wid: $scope.selectedWard.wid
     },
     {
       method: 'POST',
     })
       .then(function(response) {
         $scope.patients = response.data.data;
+        console.log("PATIENTS: " + $scope.patients);
       })
       .catch(function(error) {
         console.log("ERROR: " + error);
       });
   }
 
+  $scope.searchPatients = function() {
+    $http.post(SERVER_HOST + '/api/searchPatients', {
+      fnamesearch: $scope.fnameSearch,
+      lnamesearch: $scope.lnameSearch
+    },
+    {
+      method: 'POST'
+    })
+      .then(function(response) {
+        $scope.patients = response.data.data;
+        console.log("PATIENTS: " + $scope.patients);
+      })
+      .catch(function(error) {
+        console.log("ERRROR: " + error);
+      });
+  }
+
+  $scope.loadWards = function() {
+    $http.get(SERVER_HOST + '/api/wards')
+      .then(function(response) {
+        $scope.wards = response.data.data;
+        $scope.wards.push({wid:0, wname:'None'});
+      })
+      .catch(function(error) {
+        console.log("ERROR: " + error);
+      });
+  }
+
+  $scope.getSelectedWard = function() {
+    console.log($scope.selectedWard.wid);
+  }
+
   //Stuff to do on startup
   $scope.loadPatients();
   $scope.loadDoctors();
+  $scope.loadWards();
 
 }]);
