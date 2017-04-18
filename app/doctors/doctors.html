@@ -1,16 +1,101 @@
-<div>
-  <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable" style="margin: 20px">
-    <thead>
-      <tr>
-        <th class="mdl-data-table__cell--non-numeric">First Name</th>
-        <th class="mdl-data-table__cell--non-numeric">Last Name</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr ng-repeat="doctor in doctors" ng-click="doctorSelected(doctor.did)">
-        <td class="mdl-data-table__cell--non-numeric">{{doctor.fname}}</td>
-        <td class="mdl-data-table__cell--non-numeric">{{doctor.lname}}</td>
-      </tr>
-    </tbody>
-  </table>
+<div class="background">
+  <div class="mdl-grid">
+    <div class="mdl-cell mdl-cell--6-col" style="width:45vw;">
+      <div class="hsp mdl-card mdl-shadow--4dp" style="float:right; width:100%; margin-bottom:10px;">
+        <div class="mdl-card__title">
+          <h2 class="mdl-card__title-text">Select Doctors</h2>
+        </div>
+        <div class="mdl-card__supporting-text">
+          <!-- <p>Filter By:</p>
+          <md-input-container>
+            <label>Doctor</label>
+            <md-select ng-model="selectedDoctor" md-on-close="getSelectedDoctor()">
+               <md-option ng-value="doctor" ng-repeat="doctor in doctors">{{doctor.fname}} {{doctor.lname}}</md-option>
+            </md-select>
+          </md-input-container>
+          <br>
+          <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" ng-click="filterDoctors()">Filter</button>
+          <hr> -->
+          <!-- <p>Search</p>
+          <md-input-container>
+            <label>First Name</label>
+            <input type="text" ng-model="fnameSearch" required md-maxlength="20">
+          </md-input-container>
+          <md-input-container>
+            <label>Last Name</label>
+            <input type="text" ng-model="lnameSearch" required md-maxlength="20">
+          </md-input-container>
+          <br>
+          <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" ng-click="searchPatients()">Search</button>
+          <hr> -->
+          <table class="mdl-data-table mdl-js-data-table" style="margin-top:10px;">
+            <thead>
+              <tr>
+                <th class="mdl-data-table__cell--non-numeric">First Name</th>
+                <th class="mdl-data-table__cell--non-numeric">Last Name</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="doctor in doctors" ng-click="selectDoctor(doctor)">
+                <td class="mdl-data-table__cell--non-numeric">{{doctor.fname}}</td>
+                <td class="mdl-data-table__cell--non-numeric">{{doctor.lname}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="mdl-cell mdl-cell--6-col" style="width:45vw">
+
+      <div class="hsp mdl-card mdl-shadow--4dp" style="float:right; width:100%;">
+        <div class="mdl-card__title">
+          <h2 class="mdl-card__title-text">Create Doctor</h2>
+        </div>
+        <div class="mdl-card__supporting-text">
+          <form ng-submit="addDoctor()" action="#" name="doctorForm">
+            <md-input-container>
+              <label>First Name</label>
+              <input class="mdl-textfield__input" type="text" ng-model="newDoctor.fname" required md-maxlength="20" name="doctorFName">
+              <div ng-messages="doctorForm.doctorFName.$error">
+                <div ng-message="required">This is required!</div>
+              </div>
+            </md-input-container>
+
+            <md-input-container>
+              <label>Last Name</label>
+              <input class="mdl-textfield__input" type="text" ng-model="newDoctor.lname" required md-maxlength="20" name="doctorLName">
+              <div ng-messages="doctorForm.doctorLName.$error">
+                <div ng-message="required">This is required!</div>
+              </div>
+            </md-input-container>
+
+            <!-- <md-input-container>
+              <label>Details</label>
+              <input class="mdl-textfield__input" type="text" ng-model="newPatient.pdetails" name="patientDetails">
+              <div ng-messages="patientForm.patientDetails.$error">
+                <div ng-message="required">This is required!</div>
+              </div>
+            </md-input-container> -->
+            <br>
+            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" type="submit">Admit Patient</button>
+          </form>
+        </div>
+      </div>
+
+      <br>
+
+      <div class="hsp mdl-card mdl-shadow--4dp" style="float:right; width:100%; margin-top:10px;">
+        <div class="mdl-card__title">
+          <h2 class="mdl-card__title-text">{{selectedDoctor.fname}} {{selectedDoctor.lname}}</h2>
+        </div>
+        <div class="mdl-card__supporting-text">
+          <p><b>Specialties:</b></p>
+          <ul class='mdl-list'>
+            <li class="mdl-list__item" ng-repeat="specialty in selectedDoctor.specialties">{{specialty}}</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
 </div>

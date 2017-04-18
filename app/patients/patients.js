@@ -37,7 +37,6 @@ angular.module('myApp.PatientsCtrl', ['ngRoute'])
       .then(function(response){
         $scope.patients = response.data.data;
         $scope.selectedPatient = $scope.patients[0];
-        console.log($scope.patients);
       },
       function(error){
         console.log("ERROR: " + error);
@@ -45,17 +44,7 @@ angular.module('myApp.PatientsCtrl', ['ngRoute'])
   }
 
   $scope.selectPatient = function(patient) {
-
-    $http.get(SERVER_HOST + '/api/patients/' + patient.pid)
-      .then(function(response) {
-        console.log(response.data.data);
-        $scope.selectedPatient = response.data.data;
-        console.log($scope.selectedPatient);
-      })
-      .catch(function(error) {
-        console.log("ERROR: " + error);
-      });
-
+    $scope.selectedPatient = patient;
   }
 
 
