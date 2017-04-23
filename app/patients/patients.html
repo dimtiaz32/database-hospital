@@ -8,9 +8,9 @@
         <div class="mdl-card__supporting-text">
           <p>Filter By:</p>
           <md-input-container>
-            <label>Patient</label>
-            <md-select ng-model="selectedPatient" md-on-close="getSelectedPatient()">
-               <md-option ng-value="patient" ng-repeat="patient in patients">{{patient.fname}} {{patient.lname}}</md-option>
+            <label>Doctor</label>
+            <md-select ng-model="selectedDoctor" md-on-close="getSelectedDoctor()">
+               <md-option ng-value="doctor" ng-repeat="doctor in doctors">{{doctor.fname}} {{doctor.lname}}</md-option>
             </md-select>
           </md-input-container>
           <md-input-container>
@@ -58,35 +58,35 @@
           <h2 class="mdl-card__title-text">Admit Patient</h2>
         </div>
         <div class="mdl-card__supporting-text">
-          <form ng-submit="addPatient()" action="#" name="patientForm">
+          <form ng-submit="addPatient()" name="patientForm">
             <md-input-container>
               <label>First Name</label>
-              <input class="mdl-textfield__input" type="text" ng-model="newPatient.fname" required md-maxlength="20" name="patientFName">
-              <div ng-messages="patientForm.patientFName.$error">
+              <input class="mdl-textfield__input" type="text" ng-model="newPatient.fname" required md-maxlength="20">
+              <div ng-messages="$error">
                 <div ng-message="required">This is required!</div>
               </div>
             </md-input-container>
 
             <md-input-container>
               <label>Last Name</label>
-              <input class="mdl-textfield__input" type="text" ng-model="newPatient.lname" required md-maxlength="20" name="patientLName">
-              <div ng-messages="patientForm.patientLName.$error">
+              <input class="mdl-textfield__input" type="text" ng-model="newPatient.lname" required md-maxlength="20">
+              <div ng-messages="$error">
                 <div ng-message="required">This is required!</div>
               </div>
             </md-input-container>
 
             <md-input-container>
               <label>Phone Number</label>
-              <input class="mdl-textfield__input" type="text" ng-model="newPatient.phonenumber" required md-maxlength="10" name="patientPhone">
-              <div ng-messages="patientForm.patientPhone.$error">
+              <input class="mdl-textfield__input" type="text" ng-model="newPatient.phonenumber" required md-maxlength="10">
+              <div ng-messages="$error">
                 <div ng-message="required">This is required!</div>
               </div>
             </md-input-container>
 
             <md-input-container>
               <label>Details</label>
-              <input class="mdl-textfield__input" type="text" ng-model="newPatient.pdetails" name="patientDetails">
-              <div ng-messages="patientForm.patientDetails.$error">
+              <input class="mdl-textfield__input" type="text" ng-model="newPatient.pdetails">
+              <div ng-messages="$error">
                 <div ng-message="required">This is required!</div>
               </div>
             </md-input-container>
@@ -106,6 +106,49 @@
           <p><b>Admission Date: </b>{{selectedPatient.admissiondate.substring(0,10)}}</p>
           <p><b>Discharge Date: </b>{{selectedPatient.dischargedate.substring(0,10)}}</p>
           <p><b>Details: </b>{{selectedPatient.pdetails}}</p>
+
+          <h2 class="mdl-card__title-text">Treatments</h2>
+          <table class="mdl-data-table mdl-js-data-table" style="margin-top:10px;">
+            <thead>
+              <tr>
+                <th class="mdl-data-table__cell--non-numeric">Doctor</th>
+                <th class="mdl-data-table__cell--non-numeric">Treat For</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="treatment in selectedPatient.treatments">
+                <td class="mdl-data-table__cell--non-numeric">{{treatment.fname}} {{treatment.lname}}</td>
+                <td class="mdl-data-table__cell--non-numeric">{{treatment.dname}}</td>
+              </tr>
+            </tbody>
+          </table>
+          <button class="mdl-button mdl-js-button mdl-js-ripple-effect" ng-click="showTreatmentDialog($event)" style="width:100%;">
+            <i class="material-icons">add</i>
+          </button>
+          <br>
+
+          <h2 class="mdl-card__title-text">Wards</h2>
+          <table class="mdl-data-table mdl-js-data-table" style="margin-top:10px;">
+            <thead>
+              <tr>
+                <th class="mdl-data-table__cell--non-numeric">Ward</th>
+                <th class="mdl-data-table__cell--non-numeric">Room</th>
+                <th class="mdl-data-table__cell--non-numeric">In</th>
+                <th class="mdl-data-table__cell--non-numeric">Out</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="ward in selectedPatient.wards">
+                <td class="mdl-data-table__cell--non-numeric">{{ward.wname}}</td>
+                <td class="mdl-data-table__cell--non-numeric">{{ward.room}}</td>
+                <td class="mdl-data-table__cell--non-numeric">{{ward.indate.substring(0,10)}}</td>
+                <td class="mdl-data-table__cell--non-numeric">{{ward.outdate.substring(0,10)}}</td>
+              </tr>
+            </tbody>
+          </table>
+          <button class="mdl-button mdl-js-button mdl-js-ripple-effect" ng-click="showStaysInDialog($event)" style="width:100%;">
+            <i class="material-icons">add</i>
+          </button>
         </div>
       </div>
 
