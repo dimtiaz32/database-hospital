@@ -1,0 +1,33 @@
+<div class="background">
+  <div class="mdl-grid">
+    <div class="mdl-cell mdl-cell--6-col" ng-repeat="ward in wards">
+      <div class="hsp mdl-card mdl-shadow--4dp" style="width:100%; height: 400px;">
+        <div class="mdl-card__title">
+          <h2 class="mdl-card__title-text">{{ward.wname}}</h2>
+        </div>
+        <div class="mdl-card__supporting-text" style="overflow-y:scroll;">
+          <div class="mdl-grid">
+            <div class="mdl-cell mdl-cell--6-col">
+              <p class="hsp" style="margin-bottom:0px; font-weight:400; font-size:20px;"><b>Patients:</b></p>
+              <hr style="margin:0px">
+              <ul class='mdl-list' style="margin-top: 0px; padding-top: 0px; margin-bottom: 0px;">
+                <li class="mdl-list__item" ng-repeat="patient in ward.patients" style="padding:5px; height: 10px;">{{patient.fname}} {{patient.lname}}-{{patient.room}}</li>
+              </ul>
+            </div>
+            <div class="mdl-cell mdl-cell--6-col">
+              <p class="hsp" style="margin-bottom:0px; font-weight:400; font-size:20px;"><b>Nurses:</b></p>
+              <hr style="margin:0px">
+              <ul class='mdl-list' style="margin-top: 0px; padding-top: 0px; margin-bottom: 0px;">
+                <li class="mdl-list__item" ng-repeat="nurse in ward.nurses" style="padding:5px; height: 10px;">{{nurse.fname}} {{nurse.lname}}</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect" ng-click="showWardsDialog($event)">
+      <i class="material-icons">add</i>
+    </button>
+  </div>
+
+</div>

@@ -5,6 +5,7 @@ angular.module('myApp', [
   'ngRoute',
   'myApp.PatientsCtrl',
   'myApp.DoctorsCtrl',
+  'myApp.WardsCtrl',
   'myApp.NursesCtrl',
   'myApp.version',
   'ngMaterial'

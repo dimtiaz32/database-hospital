@@ -1,1 +1,101 @@
-<p>NURSES TEST</p>
+<div class="background">
+  <div class="mdl-grid">
+    <div class="mdl-cell mdl-cell--6-col" style="width:45vw;">
+      <div class="hsp mdl-card mdl-shadow--4dp" style="float:right; width:100%; margin-bottom:10px;">
+        <div class="mdl-card__title">
+          <h2 class="mdl-card__title-text">Select Nurses</h2>
+        </div>
+        <div class="mdl-card__supporting-text">
+          <p>Filter By:</p>
+          <md-input-container>
+            <label>Ward</label>
+            <md-select ng-model="selectedWard">
+               <md-option ng-value="ward" ng-repeat="ward in wards">{{ward.wname}}</md-option>
+            </md-select>
+          </md-input-container>
+          <br>
+          <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" ng-click="filterNurses()">Filter</button>
+          <hr>
+          <p>Search:</p>
+          <md-input-container>
+            <label>First Name</label>
+            <input type="text" ng-model="fnameSearch" required md-maxlength="20">
+          </md-input-container>
+          <md-input-container>
+            <label>Last Name</label>
+            <input type="text" ng-model="lnameSearch" required md-maxlength="20">
+          </md-input-container>
+          <br>
+          <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" ng-click="searchNurses()">Search</button>
+          <hr>
+          <table class="mdl-data-table mdl-js-data-table" style="margin-top:10px;">
+            <thead>
+              <tr>
+                <th class="mdl-data-table__cell--non-numeric">First Name</th>
+                <th class="mdl-data-table__cell--non-numeric">Last Name</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="nurse in nurses" ng-click="selectNurse(nurse)">
+                <td class="mdl-data-table__cell--non-numeric">{{nurse.fname}}</td>
+                <td class="mdl-data-table__cell--non-numeric">{{nurse.lname}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="mdl-cell mdl-cell--6-col" style="width:45vw">
+
+      <div class="hsp mdl-card mdl-shadow--4dp" style="float:right; width:100%;">
+        <div class="mdl-card__title">
+          <h2 class="mdl-card__title-text">Create Nurse</h2>
+        </div>
+        <div class="mdl-card__supporting-text">
+          <form ng-submit="addNurse()" name="patientForm">
+            <md-input-container>
+              <label>First Name</label>
+              <input class="mdl-textfield__input" type="text" ng-model="newNurse.fname" required md-maxlength="20">
+              <div ng-messages="$error">
+                <div ng-message="required">This is required!</div>
+              </div>
+            </md-input-container>
+
+            <md-input-container>
+              <label>Last Name</label>
+              <input class="mdl-textfield__input" type="text" ng-model="newNurse.lname" required md-maxlength="20">
+              <div ng-messages="$error">
+                <div ng-message="required">This is required!</div>
+              </div>
+            </md-input-container>
+
+            <br>
+            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" type="submit">Add Nurse</button>
+          </form>
+        </div>
+      </div>
+
+      <br>
+
+      <div class="hsp mdl-card mdl-shadow--4dp" style="float:right; width:100%; margin-top:10px;">
+        <div class="mdl-card__title">
+          <h2 class="mdl-card__title-text">{{selectedNurse.fname}} {{selectedNurse.lname}}</h2>
+        </div>
+        <div class="mdl-card__supporting-text">
+
+          <p class="hsp" style="margin-bottom:0px; font-weight:400; font-size:20px;"><b>Wards:</b></p>
+          <hr style="margin:0px">
+          <ul class='mdl-list' style="margin-top: 0px; padding-top: 0px; margin-bottom: 0px;">
+            <li class="mdl-list__item" ng-repeat="ward in selectedNurse.wards" style="padding:5px; height: 10px;">{{ward.wname}}</li>
+          </ul>
+          <button class="mdl-button mdl-js-button mdl-js-ripple-effect" ng-click="showWorksInDialog($event)" style="float:right; width:100%;">
+            <i class="material-icons">add</i>
+          </button>
+          <br>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
