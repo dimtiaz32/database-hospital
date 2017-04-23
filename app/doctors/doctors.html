@@ -6,17 +6,17 @@
           <h2 class="mdl-card__title-text">Select Doctors</h2>
         </div>
         <div class="mdl-card__supporting-text">
-          <!-- <p>Filter By:</p>
+          <p>Filter By:</p>
           <md-input-container>
-            <label>Doctor</label>
-            <md-select ng-model="selectedDoctor" md-on-close="getSelectedDoctor()">
-               <md-option ng-value="doctor" ng-repeat="doctor in doctors">{{doctor.fname}} {{doctor.lname}}</md-option>
+            <label>Specialty</label>
+            <md-select ng-model="selectedSpecialty">
+               <md-option ng-value="specialty" ng-repeat="specialty in specialties">{{specialty.specialty}}</md-option>
             </md-select>
           </md-input-container>
           <br>
           <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" ng-click="filterDoctors()">Filter</button>
-          <hr> -->
-          <!-- <p>Search</p>
+          <hr>
+          <p>Search:</p>
           <md-input-container>
             <label>First Name</label>
             <input type="text" ng-model="fnameSearch" required md-maxlength="20">
@@ -26,8 +26,8 @@
             <input type="text" ng-model="lnameSearch" required md-maxlength="20">
           </md-input-container>
           <br>
-          <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" ng-click="searchPatients()">Search</button>
-          <hr> -->
+          <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" ng-click="searchDoctors()">Search</button>
+          <hr>
           <table class="mdl-data-table mdl-js-data-table" style="margin-top:10px;">
             <thead>
               <tr>
@@ -92,9 +92,14 @@
         <div class="mdl-card__supporting-text">
           <p class="hsp" style="margin-bottom:0px; font-weight:400; font-size:20px;"><b>Specialties:</b></p>
           <hr style="margin:0px">
-          <ul class='mdl-list' style="margin-top: 0px; padding-top: 0px;">
+          <ul class='mdl-list' style="margin-top: 0px; padding-top: 0px; margin-bottom: 0px;">
             <li class="mdl-list__item" ng-repeat="specialty in selectedDoctor.specialties" style="padding:5px; height: 10px;">{{specialty}}</li>
           </ul>
+          <input class="mdl-textfield__input" type="text" ng-model="newSpecialty" required placeholder="Add Specialty">
+          <button class="mdl-button mdl-js-button mdl-js-ripple-effect" ng-click="addSpecialty(selectedDoctor)" style="float:right; width:100%;">
+            <i class="material-icons">add</i>
+          </button>
+
           <p class="hsp" style="margin-bottom:0px; font-weight:400; font-size:20px;"><b>Patients:</b></p>
           <hr style="margin:0px">
           <ul class='mdl-list' style="margin-top: 0px; padding-top: 0px;">

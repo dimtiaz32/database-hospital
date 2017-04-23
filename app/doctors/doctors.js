@@ -21,7 +21,16 @@ angular.module('myApp.DoctorsCtrl', ['ngRoute'])
     specialty: 'None'
   };
   $scope.doctorPatients = [];
+  $scope.newSpecialty = "Add Specialty";
 
+
+  //Filter Stuff
+  $scope.specialties = [];
+  $scope.selectedSpecialty = {};
+
+  //Search Stuff
+  $scope.fnameSearch;
+  $scope.lnameSearch;
 
   //load functions
   $scope.loadDoctors = function() {
@@ -29,7 +38,7 @@ angular.module('myApp.DoctorsCtrl', ['ngRoute'])
       .then(function(response){
         $scope.doctors = response.data.data;
         $scope.selectedDoctor = $scope.doctors[0];
-        console.log($scope.selectedDoctor);
+        //console.log($scope.selectedDoctor);
         $scope.selectDoctor($scope.selectedDoctor);
       },
       function(error){
@@ -41,7 +50,7 @@ angular.module('myApp.DoctorsCtrl', ['ngRoute'])
     $scope.selectedDoctor = doctor;
 
     //get the specialties for the doctor
-    $http.get(HOST + '/api/doctorSpecialties/' + doctor.did)
+    $http.get(HOST + '/api/specialties/' + doctor.did)
       .then(function(response) {
         var specialties = [];
         var resArray = response.data.data;
@@ -50,12 +59,11 @@ angular.module('myApp.DoctorsCtrl', ['ngRoute'])
         }
         $scope.selectedDoctor.specialties = specialties;
         //console.log($scope.selectedDoctor.specialties);
-        console.log("GOT THE SPECIALTIES");
+        //console.log("GOT THE SPECIALTIES");
       },
       function(error) {
         console.log(error);
       });
-    console.log($scope.selectedDoctor);
 
     //get the patients for the doctors
     $http.post(HOST + '/api/filteredPatients', {
@@ -64,7 +72,7 @@ angular.module('myApp.DoctorsCtrl', ['ngRoute'])
     })
       .then(function(response) {
         $scope.doctorPatients = response.data.data;
-        console.log("PATIENTS: " + $scope.doctorPatients);
+        //console.log("PATIENTS: " + $scope.doctorPatients);
       },
       function(error) {
         console.log(error);
@@ -90,7 +98,57 @@ angular.module('myApp.DoctorsCtrl', ['ngRoute'])
       });
   }
 
+  $scope.filterDoctors = function() {
+    $http.post(HOST + '/api/filteredDoctors', {
+      specialty: $scope.selectedSpecialty.specialty
+    })
+      .then(function(response) {
+        //console.log(response.data.data);
+        $scope.doctors = response.data.data;
+      },
+      function(error) {
+        console.log(error);
+      });
+  }
+
+  $scope.searchDoctors = function() {
+    $http.post(HOST + '/api/searchDoctors', {
+      fnamesearch: $scope.fnameSearch,
+      lnamesearch: $scope.lnameSearch
+    })
+      .then(function(response) {
+        $scope.doctors = response.data.data;
+      }, function(error) {
+        console.log(error);
+      });
+  }
+
+  $scope.loadSpecialties = function() {
+    $http.get(HOST + '/api/specialties')
+      .then(function(response) {
+        $scope.specialties = response.data.data;
+        $scope.specialties.push({ did: 0, specialty: 'None' });
+      },
+      function(error) {
+        console.log(error);
+      });
+  }
+
+  $scope.addSpecialty = function(doctor) {
+    $http.post(HOST + '/api/specialties', {
+      did: doctor.did,
+      specialty: $scope.newSpecialty
+    })
+      .then(function(response) {
+        console.log(response);
+        $scope.selectDoctor(doctor);
+      }, function(error) {
+        console.log(error);
+      });
+  }
+
   //Functions to call on startup
   $scope.loadDoctors();
+  $scope.loadSpecialties();
 
 }]);
