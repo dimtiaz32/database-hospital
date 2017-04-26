@@ -100,13 +100,15 @@
 
       <div class="hsp mdl-card mdl-shadow--4dp" style="float:right; width:100%; margin-top:10px;">
         <div class="mdl-card__title">
-          <h2 class="mdl-card__title-text">{{selectedPatient.fname}} {{selectedPatient.lname}}</h2>
+          <h3 class="mdl-card__title-text" style="font-size:32px;">{{selectedPatient.fname}} {{selectedPatient.lname}}</h3>
+          <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect" ng-click="showUpdatePatientDialog($event)" style="text-align:right; margin-right:0px;">
+            <i class="material-icons">edit</i>
+          </button>
         </div>
         <div class="mdl-card__supporting-text">
           <p><b>Admission Date: </b>{{selectedPatient.admissiondate.substring(0,10)}}</p>
           <p><b>Discharge Date: </b>{{selectedPatient.dischargedate.substring(0,10)}}</p>
           <p><b>Details: </b>{{selectedPatient.pdetails}}</p>
-
           <h2 class="mdl-card__title-text">Treatments</h2>
           <table class="mdl-data-table mdl-js-data-table" style="margin-top:10px;">
             <thead>
@@ -125,6 +127,7 @@
           <button class="mdl-button mdl-js-button mdl-js-ripple-effect" ng-click="showTreatmentDialog($event)" style="width:100%;">
             <i class="material-icons">add</i>
           </button>
+
           <br>
 
           <h2 class="mdl-card__title-text">Wards</h2>
@@ -146,9 +149,21 @@
               </tr>
             </tbody>
           </table>
-          <button class="mdl-button mdl-js-button mdl-js-ripple-effect" ng-click="showStaysInDialog($event)" style="width:100%;">
-            <i class="material-icons">add</i>
+          <div class="row">
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect" ng-click="showStaysInDialog($event)" style="width:49%; padding:none;">
+              <i class="material-icons">add</i>
+            </button>
+            <button class="mdl-button mdl-js-button mdl-button--raised" ng-click="dischargePatient()"  style="width:50%; padding:none; margin-right:0px;">
+              Discharge
+            </button>
+          </div>
+
+          <br>
+
+          <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" ng-click="showBillDialog($event)"  style="width:100%;">
+            Generate Bill
           </button>
+
         </div>
       </div>
 

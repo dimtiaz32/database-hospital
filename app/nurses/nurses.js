@@ -13,6 +13,7 @@ angular.module('myApp.NursesCtrl', ['ngRoute'])
 
   var HOST = 'http://localhost:3000';
 
+  //variables for handling the data to be displayed
   $scope.nurses = [];
   $scope.selectedNurse = {};
   $scope.newNurse = {
@@ -41,6 +42,7 @@ angular.module('myApp.NursesCtrl', ['ngRoute'])
       });
   }
 
+  //handles selecting a nurse and displaying the details
   $scope.selectNurse = function(nurse) {
     $scope.selectedNurse = nurse;
 
@@ -55,6 +57,8 @@ angular.module('myApp.NursesCtrl', ['ngRoute'])
 
   }
 
+
+  //function to handle adding a nurse
   $scope.addNurse = function() {
     $http.post("http://localhost:3000/api/nurses",{
       fname: $scope.newNurse.fname,
@@ -71,6 +75,7 @@ angular.module('myApp.NursesCtrl', ['ngRoute'])
       });
   }
 
+  //function that handles the nurse filtering
   $scope.filterNurses = function() {
     $http.post(HOST + '/api/filteredNurses', {
       wid: $scope.selectedWard.wid
@@ -83,6 +88,7 @@ angular.module('myApp.NursesCtrl', ['ngRoute'])
       });
   }
 
+  //function to search for nurses
   $scope.searchNurses = function() {
     $http.post(HOST + '/api/searchNurses', {
       fnamesearch: $scope.fnameSearch,
@@ -95,6 +101,8 @@ angular.module('myApp.NursesCtrl', ['ngRoute'])
       });
   }
 
+
+  //function to load all the possible wards
   $scope.loadWards = function() {
     $http.get(HOST + '/api/wards')
       .then(function(response) {
@@ -111,7 +119,7 @@ angular.module('myApp.NursesCtrl', ['ngRoute'])
   $scope.loadWards();
 
 
-
+  //function that handles the dialog for adding a nurse to a ward
   $scope.showWorksInDialog = function($event) {
       // var parentEl = angular.element(document.querySelector());
        $mdDialog.show({

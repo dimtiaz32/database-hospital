@@ -16,28 +16,32 @@ angular.module('myApp.WardsCtrl', ['ngRoute'])
 
   $scope.wards = [];
 
-
+  //function that gets the patients for a ward
   function getPatients(index, wid) {
     $http.get(SERVER_HOST + '/api/wardPatients/' + wid)
       .then(function(response) {
         $scope.wards[index].patients = response.data.data;
-        //console.log(response.data.data);
+        console.log($scope.wards[index].patients);
+        console.log(wid);
+        console.log(response.data);
       }, function(error) {
         console.log(error);
         return undefined;
       });
   }
 
+  //function that gets the nurses for a ward
   function getNurses(index, wid) {
     $http.get(SERVER_HOST + '/api/wardNurses/' + wid)
       .then(function(response) {
         $scope.wards[index].nurses = response.data.data;
-        console.log($scope.wards[index].nurses);
+        //console.log($scope.wards[index].nurses);
       }, function(error) {
         console.log(error);
       });
   }
 
+  //function that loads wards
   $scope.loadWards = function() {
     $http.get(SERVER_HOST + '/api/wards')
       .then(function(response) {
@@ -60,7 +64,7 @@ angular.module('myApp.WardsCtrl', ['ngRoute'])
   $scope.loadWards();
 
 
-
+  //This function manages the dialog to create a ward
   $scope.showWardsDialog = function($event) {
       // var parentEl = angular.element(document.querySelector());
        $mdDialog.show({

@@ -12,7 +12,7 @@ angular.module('myApp.DoctorsCtrl', ['ngRoute'])
 .controller('DoctorsCtrl', ['$scope', '$http', '$window', function($scope, $http, $window) {
 
   var HOST = 'http://localhost:3000';
-
+  //variables for the controller
   $scope.doctors = [];
   $scope.selectedDoctor = {};
   $scope.newDoctor = {
@@ -46,6 +46,7 @@ angular.module('myApp.DoctorsCtrl', ['ngRoute'])
       });
   }
 
+  //this selects a doctor for the doctor detail view
   $scope.selectDoctor = function(doctor) {
     $scope.selectedDoctor = doctor;
 
@@ -79,6 +80,7 @@ angular.module('myApp.DoctorsCtrl', ['ngRoute'])
       });
   }
 
+  //post a new doctor
   $scope.addDoctor = function() {
     $http.post("http://localhost:3000/api/doctors",{
       fname: $scope.newDoctor.fname,
@@ -98,6 +100,8 @@ angular.module('myApp.DoctorsCtrl', ['ngRoute'])
       });
   }
 
+
+  //query database for filtered doctors
   $scope.filterDoctors = function() {
     $http.post(HOST + '/api/filteredDoctors', {
       specialty: $scope.selectedSpecialty.specialty
@@ -111,6 +115,7 @@ angular.module('myApp.DoctorsCtrl', ['ngRoute'])
       });
   }
 
+  //query to search for doctors
   $scope.searchDoctors = function() {
     $http.post(HOST + '/api/searchDoctors', {
       fnamesearch: $scope.fnameSearch,
@@ -123,6 +128,7 @@ angular.module('myApp.DoctorsCtrl', ['ngRoute'])
       });
   }
 
+  //get the possible specialties
   $scope.loadSpecialties = function() {
     $http.get(HOST + '/api/specialties')
       .then(function(response) {
@@ -134,6 +140,7 @@ angular.module('myApp.DoctorsCtrl', ['ngRoute'])
       });
   }
 
+  //add a specialty for a doctor
   $scope.addSpecialty = function(doctor) {
     $http.post(HOST + '/api/specialties', {
       did: doctor.did,
